@@ -16,7 +16,7 @@
   3. Download the [data](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) from here.
   4. Unzip this file after downloading it. The file inside is called newsdata.sql.
   5. Copy the content of this current repository, by either downloading or cloning it from
-  [Here]
+  [Here](https://github.com/chkrishnadheeraj/Log-Analysis-Reporting)
   
 #### Launching the Virtual Machine:
   1. Launch the Vagrant VM inside Vagrant sub-directory in the downloaded fullstack-nanodegree-vm repository using command:
@@ -63,10 +63,10 @@
   as "Error Percentage" from log group by date(time) 
   order by "Error Percentage" desc;
   ```
-  | Column        | Type    |
-  | :-------      | :-------|
-  | date          | date    |
-  | Percent Error | float   |
+  | Column           | Type    |
+  | :----------------| :-------|
+  | date             | date    |
+  | Error Percentage | float   |
   
 #### Running the queries:
   1. From the vagrant directory inside the virtual machine,run logs.py using:
