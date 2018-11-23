@@ -1,7 +1,7 @@
 # Log-Analysis
 
 ## Project Overview
->In this project, we'll work with data that could have come from a real-world web application such as news website, with fields representing information that a web server would record, such as HTTP status codes and URL paths and also the information about the articles stored in the database. This is a reporting tool which queires the database and presents the results through a python file.
+>The is SQL reporting tool developed in Python. It contains the data from news articles webiste. This application queires against the database and presents the results for questions like top articles,top authors and the down time of the server
 
 ### How to Run?
 
@@ -19,17 +19,18 @@
   [Here](https://github.com/chkrishnadheeraj/Log-Analysis-Reporting)
   
 #### Launching the Virtual Machine:
-  1. Launch the Vagrant VM inside Vagrant sub-directory in the downloaded fullstack-nanodegree-vm repository using command:
+  1. Launch the Vagrant VM inside Vagrant sub-directory in the downloaded fullstack-nanodegree-vm repository using command and Log in using the following command:
   
   ```
-    $ vagrant up
-  ```
-  2. Then Log into this using command:
+    $ vagrant up && vagrant ssh
   
   ```
-    $ vagrant ssh
+  2. Change directory to /vagrant and look around with ls.
+
   ```
-  3. Change directory to /vagrant and look around with ls.
+    $ cd /vagrant
+
+  ```
   
 #### Setting up the database and Creating Views:
 
@@ -39,37 +40,28 @@
     psql -d news -f newsdata.sql
   ```
   The database includes three tables:
-  * The authors table includes information about the authors of articles.
-  * The articles table includes the articles themselves.
-  * The log table includes one entry for each time a user has accessed the site.
+  * Authors
+  * Articles
+  * Log
   
   2. Use `psql -d news` to connect to database.
   
   3. Create view article_views using:
   ```
-  create view article_views as select author,title,count(*) as views from articles,log 
-  where log.path like concat('%',articles.slug) group by articles.title,articles.author
-  order by views desc;
+  create view article_views as select author,title,count(*) as views from articles a,log l 
+  where a.slug = substring(l.path,10) group by title,author order by views desc;
   ```
-  | Column  | Type    |
-  | :-------| :-------|
-  | author  | text    |
-  | title   | text    |
-  | views   | Integer |
-  
-  4. Create vier error_log_view using:
+    
+  4. Create view error_log_view using:
   ```
   create view error_view as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) 
   as "Error Percentage" from log group by date(time) 
   order by "Error Percentage" desc;
   ```
-  | Column           | Type    |
-  | :----------------| :-------|
-  | date             | date    |
-  | Error Percentage | float   |
+ 
   
 #### Running the queries:
-  1. From the vagrant directory inside the virtual machine,run logs.py using:
+  1. From the vagrant directory inside the virtual machine,run loganalysis.py using:
   ```
-    $ python3 logs.py
+    $ python3 loganalysis.py
   ```

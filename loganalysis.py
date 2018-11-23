@@ -1,5 +1,4 @@
 import psycopg2
-import bleach
 
 DBNAME = "news"
 
@@ -10,10 +9,10 @@ top_error_query = "select *  from error_view where \"Error Percentage\" > 1"
 
 
 query_1_result = dict()
-query_1_result['title'] = "\nThe 3 most popular articles of all time:\n"
+query_1_result['title'] = "\nTop 3 popular articles of all time:\n"
 
 query_2_result = dict()
-query_2_result['title'] = "\nThe most popular article authors of all time:\n"
+query_2_result['title'] = "\nMost popular article authors of all time:\n"
 
 query_3_result = dict()
 query_3_result['title'] = "\nThe days where requests error percentage was greater than 1:\n"
@@ -37,7 +36,7 @@ def print_query_results(query_result):
 def print_error_results(error_result):
     print(error_result['title'])
     for result in error_result['results']:
-        print('\t' + str(result[0]) + '----->' + str(result[1]) + '%' )
+        print('\t' + str(result[0]) + '----->' + str(result[1]) + '% errors' )
 
 query_1_result['results'] = get_results(top_articles_query)
 query_2_result['results'] = get_results(top_authors_query)
