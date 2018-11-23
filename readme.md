@@ -1,7 +1,7 @@
 # Log-Analysis
 
 ## Project Overview
->The is SQL reporting tool developed in Python. It contains the data from news articles webiste. This application queires against the database and presents the results for questions like top articles,top authors and the down time of the server
+>This is a SQL reporting tool developed in Python. It contains the data from news articles webiste. This application queires against the database and presents the results for questions like top articles,top authors and the down time of the server
 
 ### How to Run?
 
