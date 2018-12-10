@@ -48,8 +48,7 @@
   
   3. Create view article_views using:
   ```
-  create view article_views as select author,title,count(*) as views from articles a,log l 
-  where a.slug = substring(l.path,10) group by title,author order by views desc;
+  create view article_views as select substring(path from 10) from log;
   ```
     
   4. Create view error_log_view using:
