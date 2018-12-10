@@ -2,9 +2,18 @@ import psycopg2
 
 DBNAME = "news"
 
-top_articles_query = "select title,views from article_views limit 3"
-top_authors_query = """select authors.name,sum(article_views.views) as views from authors,article_views 
-where authors.id = article_views.author group by authors.name order by views desc"""
+top_articles_query = """select title,count(*) as views
+                        from articles,article_views
+                        where articles.slug=article_views.substring
+                        group by articles.title
+                        order by views desc limit 3;"""
+
+top_authors_query = """select auth.name,count(*) as num_views
+                        from authors auth,articles art,article_views
+                        where auth.id = art.author and art.slug=article_views.substring
+                        group by auth.name
+                        order by num_views desc;"""
+
 top_error_query = "select *  from error_view where \"Error Percentage\" > 1"
 
 
